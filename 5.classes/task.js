@@ -86,3 +86,38 @@ class Library {
         return findBook;
     }
 }
+
+class Student {
+    constructor(name) {
+        this.name = name;
+        this.marks = {};
+    }
+
+    addMark(mark, subject){
+        if ((mark >= 2)&&(mark <= 5)) {
+            if (!this.marks[subject]) {
+                this.marks[subject] = [];
+            }  
+            this.marks[subject].push(mark);
+        }
+    }
+
+    getAverageBySubject(subject){
+        if (!this.marks[subject]){
+            return 0;
+        }
+        return this.marks[subject].reduce((acc, item) => acc += item, 0) / this.marks[subject].length;
+    }
+
+    getAverage(){
+        const subjects = Object.keys(this.marks);
+        if (subjects.length === 0) {
+            return 0;
+        } 
+        let average = 0;
+        for (let i = 0; i < subjects.length; i++) {
+            average += this.getAverageBySubject(subjects[i]);
+        }
+        return average / subjects.length;
+    }
+}
